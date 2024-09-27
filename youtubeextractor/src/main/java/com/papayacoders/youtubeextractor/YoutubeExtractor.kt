@@ -12,9 +12,12 @@ import retrofit2.Call
 
 object YoutubeExtractor {
 
-    fun getData(videoId: String): StreamingData? {
+    interface StreamingDataCallback {
+        fun onResponse(streamingData: StreamingData?)
+    }
 
-        var streamingData: StreamingData? = null
+    fun getData(videoId: String, callback: StreamingDataCallback) {
+
 
         val youtubeApiService = RetrofitClient.instance.create(YouTubeApiService::class.java)
 
@@ -38,6 +41,8 @@ object YoutubeExtractor {
             )
         )
 
+
+
         youtubeApiService.getPlayerData(requestBody)
             .enqueue(object : retrofit2.Callback<YoutubeResponse> {
                 override fun onResponse(
@@ -46,19 +51,20 @@ object YoutubeExtractor {
                 ) {
                     if (response.isSuccessful) {
                         val youtubeResponse = response.body()
-                        streamingData = youtubeResponse!!.streamingData!!
-                        println("Video Title: ${streamingData?.formats?.get(0)?.url}")
+                        val streamingData = youtubeResponse!!.streamingData!!
+                        callback.onResponse(streamingData)
                     } else {
+                        callback.onResponse(null)
+
                         println("Video Title:issue")
                     }
                 }
 
                 override fun onFailure(call: Call<YoutubeResponse>, t: Throwable) {
-                    // Handle the failure
+                    callback.onResponse(null)      // Handle the failure
                 }
             })
-        return streamingData
-        
+
 
     }
 
