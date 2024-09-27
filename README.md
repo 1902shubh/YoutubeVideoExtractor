@@ -26,7 +26,7 @@ allprojects {
 
 ```gradle
 	dependencies {
-	        implementation("com.github.1902shubh:YoutubeVideoExtractor:1.0.9")
+	        implementation("com.github.1902shubh:YoutubeVideoExtractor:1.0.2")
 	}
   
   ```
@@ -34,20 +34,32 @@ allprojects {
 
 How to use this library.
 
-### 1. Define Model of streaming data like Sample app 
+### Extract Data in Kotlin
 
+```            
+            YoutubeExtractor.getData("4JmRCK4NNjw", object  : StreamingDataCallback{
+                override fun onResponse(streamingData: StreamingData?) {
+                    if (streamingData != null) {
+                        println("Video URL: test ${streamingData.formats[0].url}")
+                    } else {
+                        println("Failed to retrieve streaming data")
+                    }
+                }
 
-For information : Checkout [Model Class](https://github.com/1902shubh/YoutubeVideoExtractor/tree/master/app/src/main/java/com/papayacoders/youtubevideoextractor/model) in repository.
+            })
+```
 
-### 2. Extract Data
+### Extract Data in Java
 
 ```
-        var data = YoutubeExtractor.getData("4JmRCK4NNjw")
-
-        // Update UI with the response data
-        println("Video Title: ${data?.formats?.get(0)?.url}")
+ YoutubeExtractor.INSTANCE.getData("4JmRCK4NNjw", streamingData -> {
+                if (streamingData != null) {
+                    Log.d("shubh","Video URL: test "+streamingData.getFormats().get(0).getUrl());
+                } else {
+                    Log.d("shubh","Failed to retrieve streaming data");
+                }
+            });
 ```
-
 ## Connect
 - [Twitter](https://twitter.com/papayacoders)
 - [Youtube](https://youtube.com/papayacoders)
