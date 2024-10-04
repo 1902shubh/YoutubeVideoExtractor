@@ -51,12 +51,14 @@ object YoutubeExtractor {
                 ) {
                     if (response.isSuccessful) {
                         val youtubeResponse = response.body()
-                        val streamingData = youtubeResponse!!.streamingData!!
-                        callback.onResponse(streamingData)
+                        if (youtubeResponse?.streamingData != null) {
+                            val streamingData = youtubeResponse.streamingData
+                            callback.onResponse(streamingData)
+                        }else{
+                            callback.onResponse(null)
+                        }
                     } else {
                         callback.onResponse(null)
-
-                        println("Video Title:issue")
                     }
                 }
 
