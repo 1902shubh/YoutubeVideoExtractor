@@ -10,7 +10,7 @@ import retrofit2.http.POST
 interface YouTubeApiService {
 
     @Headers("Content-Type: application/json")
-    @POST("youtubei/v1/player?prettyPrint=false&key=AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8")
+    @POST("youtubei/v1/player?prettyPrint=false&key=AIzaSyBMxZEuk1yD0ZEyFqH8TyC4IoBw0n5a9I4")
     fun getPlayerData(
         @Body body: YouTubeRequestBody
     ): Call<YoutubeResponse>

@@ -19,18 +19,23 @@ class MainActivity : AppCompatActivity() {
 
         
         binding.button.setOnClickListener {
-            
-            
-            YoutubeExtractor.getData("4JmRCK4NNjw", object  : StreamingDataCallback{
-                override fun onResponse(streamingData: StreamingData?) {
-                    if (streamingData != null) {
-                        println("Video URL: test ${streamingData.formats[0].url}")
-                    } else {
-                        println("Failed to retrieve streaming data")
-                    }
-                }
 
-            })
+            val videoUrl = "https://www.youtube.com/watch?v=1ChxJ7aGzfo" // Example URL
+            val videoInfo = YouTubeVideoExtractor.extractVideoInfo(videoUrl)
+            println("Video Information: \n$videoInfo")
+            println("Video Information: \n$videoInfo")
+            
+            
+//            YoutubeExtractor.getData("4JmRCK4NNjw", object  : StreamingDataCallback{
+//                override fun onResponse(streamingData: StreamingData?) {
+//                    if (streamingData != null) {
+//                        println("Video URL: test ${streamingData.formats[0].url}")
+//                    } else {
+//                        println("Failed to retrieve streaming data")
+//                    }
+//                }
+
+//            })
             
             
         }
