@@ -40,7 +40,7 @@ android {
 }
 
 group = "com.papayacoders.youtubeextractor"
-version = "1.0.4"
+version = "1.0.5"
 
 
 
@@ -54,7 +54,7 @@ publishing {
 
             groupId = "com.papayacoders.youtubeextractor"
             artifactId = "youtubeextractor"
-            version = "1.0.4" // Ensure this matches your versioning
+            version = "1.0.5" // Ensure this matches your versioning
 
         }
     }

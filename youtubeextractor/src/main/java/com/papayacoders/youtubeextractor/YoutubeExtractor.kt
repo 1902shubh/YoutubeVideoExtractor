@@ -1,5 +1,6 @@
 package com.papayacoders.youtubeextractor
 
+import android.util.Log
 import com.papayacoders.youtubeextractor.api.ClientData
 import com.papayacoders.youtubeextractor.api.ContextData
 import com.papayacoders.youtubeextractor.api.Html5PreferenceData
@@ -8,6 +9,7 @@ import com.papayacoders.youtubeextractor.api.RetrofitClient
 import com.papayacoders.youtubeextractor.api.YouTubeRequestBody
 import com.papayacoders.youtubeextractor.models.StreamingData
 import com.papayacoders.youtubeextractor.models.YoutubeResponse
+import org.json.JSONObject
 import retrofit2.Call
 
 object YoutubeExtractor {
@@ -29,8 +31,8 @@ object YoutubeExtractor {
             racyCheckOk = true,
             context = ContextData(
                 client = ClientData(
-                    clientName = "ANDROID_CREATOR",
-                    clientVersion = "22.30.100",
+                    clientName = "WEB",
+                    clientVersion = "2.20210721.00.00",
                     hl = "en"
                 )
             ),
@@ -58,6 +60,10 @@ object YoutubeExtractor {
                             callback.onResponse(null)
                         }
                     } else {
+                        val errorString = response.errorBody()!!.string() // Get the JSON string
+                        val jsonObject = JSONObject(errorString)
+                        val errorMessage = jsonObject.getJSONObject("content").getString("message")
+                        Log.d("papayacoders", "onResponse: ${response.errorBody()}")
                         callback.onResponse(null)
                     }
                 }
